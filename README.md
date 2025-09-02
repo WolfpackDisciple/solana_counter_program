@@ -9,8 +9,6 @@ You can read more here: https://solana.com/ru/docs/programs/rust/program-structu
 - **Initialize Counter**: Create a new counter with a custom initial value
 - **Increment Counter**: Increase counter value by specified step (default: 1)
 - **Decrement Counter**: Decrease counter value by specified step (default: 1) 
-- **Overflow/Underflow Protection**: Safe arithmetic operations with proper error
-- handling
 - **Custom Step Sizes**: Optional parameter to specify custom increment/decrement steps
 
 ## Prerequisites
@@ -126,13 +124,7 @@ The program supports three instructions:
 3. **DecrementCounter**: Decreases counter value  
    - `step: Option<u64>` - Optional step size (default: 1)
 
-### Account Structure
 
-```rust
-pub struct CounterAccount {
-    pub count: u64,  // Current counter value
-}
-```
 
 ## Usage Examples
 
@@ -160,12 +152,6 @@ CounterInstruction::DecrementCounter { step: None }
 CounterInstruction::DecrementCounter { step: Some(3) }
 ```
 
-## Security Features
-
-- **Ownership Verification**: Ensures only program-owned accounts can be modified
-- **Initialization Checks**: Prevents re-initialization of existing accounts
-- **Arithmetic Safety**: Protected against overflow/underflow attacks
-- **Account Validation**: Proper validation of all input accounts
 
 ## Testing
 
@@ -192,8 +178,8 @@ solana_counter_program/
 │   └── client.rs       # Example client implementation
 ├── target/
 │   └── deploy/
-│       ├── counter_program.so           # Compiled program
-│       └── counter_program-keypair.json # Program keypair
+│       ├── solana-counter_program.so           # Compiled program
+│       └── solana-counter_program-keypair.json # Program keypair
 ├── Cargo.toml          # Project configuration
 └── README.md           # This file
 ```
@@ -204,9 +190,7 @@ This program extends the official Solana counter example with enhanced functiona
 For detailed explanations of Solana program structure and concepts, 
 refer to the official documentation:
 
-- [Solana Documentation](https://solana.com/docs)
-- [Solana Rust SDK](https://docs.rs/solana-program/latest/solana_program/)
-- [BPF Program Development](https://solana.com/docs/programs/rust)
+You can read more here: https://solana.com/ru/docs/programs/rust/program-structure
 
 ## Contributing
 
