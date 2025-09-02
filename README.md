@@ -1,27 +1,30 @@
-# Solana Counter Program
+Solana Counter Program
 
-An enhanced Solana counter program example featuring increment/decrement functionality 
-with customizable step sizes. This program extends the official Solana counter example 
-with additional capabilities.
-You can read more here: https://solana.com/ru/docs/programs/rust/program-structure
-## Features
+An enhanced Solana counter program example featuring increment/decrement functionality with customizable step sizes. This program extends the official Solana counter example with additional capabilities. You can read more here: https://solana.com/ru/docs/programs/rust/program-structure
 
-- **Initialize Counter**: Create a new counter with a custom initial value
-- **Increment Counter**: Increase counter value by specified step (default: 1)
-- **Decrement Counter**: Decrease counter value by specified step (default: 1) 
-- **Custom Step Sizes**: Optional parameter to specify custom increment/decrement steps
+⚠️ Disclaimer: This is an educational project. The code is based on official Solana examples and documentation. It is intended for learning purposes and has not been audited for security. It should not be used in production environments.
+Features
 
-## Prerequisites
+    Initialize Counter: Create a new counter with a custom initial value
 
-- Rust 1.60.0 or later
-- Solana CLI tools 1.10.0 or later
-- Git
+    Increment Counter: Increase counter value by specified step (default: 1)
 
-## Quick Start
+    Decrement Counter: Decrease counter value by specified step (default: 1)
 
-### 1. Install Dependencies
+    Custom Step Sizes: Optional parameter to specify custom increment/decrement steps
 
-```bash
+Prerequisites
+
+    Rust 1.60.0 or later
+
+    Solana CLI tools 1.10.0 or later
+
+    Git
+
+Quick Start
+1. Install Dependencies
+bash
+
 # Install Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source ~/.cargo/env
@@ -32,11 +35,10 @@ sh -c "$(curl -sSfL https://release.solana.com/v1.17.24/install)"
 # Verify installations
 rustc --version
 solana --version
-```
 
-### 2. Clone and Setup Project
+2. Clone and Setup Project
+bash
 
-```bash
 # Clone the repository
 git clone https://github.com/WolfpackDisciple/solana_counter_program.git
 cd solana_counter_program
@@ -46,118 +48,106 @@ cargo build-sbf
 
 # Set Solana CLI to localnet
 solana config set --url localhost
-```
 
-### 3. Cargo.toml Configuration
+3. Cargo.toml Configuration
 
-Ensure your `Cargo.toml` contains the following dependencies:
+Ваш файл Cargo.toml уже содержит правильные настройки:
+toml
 
-```toml
 [package]
-name = "counter_program"
+name = "solana_counter_program" # Название пакета
 version = "0.1.0"
-description = "Enhanced Solana counter program with increment/decrement functionality"
 edition = "2021"
 
 [lib]
 crate-type = ["cdylib", "lib"]
 
 [dependencies]
+borsh = "1.5.7" # Актуальная версия borsh
 solana-program = "2.2.0"
-borsh = { version = "0.10.3", features = ["derive"] }
 
 [dev-dependencies]
-litesvm = "0.6.1"
+litesvm = "0.6.1" # Для unit-тестов
+solana-client = "2.2.0" # Для примера client.rs
 solana-sdk = "2.2.0"
+tokio = "1.47.1" # Для асинхронного runtime в клиенте
 
 [[example]]
 name = "client"
-path = "examples/client.rs"
-```
+path = "examples/client.rs" # Пример клиента зарегистрирован
 
-### 4. Build and Deploy
+4. Build and Deploy
+bash
 
-```bash
 # Build the program
 cargo build-sbf
 
 # Start local validator (in separate terminal)
 solana-test-validator
 
-# Deploy program
-solana program deploy ./target/deploy/counter_program.so
+# Deploy program (используйте правильное имя файла!)
+solana program deploy ./target/deploy/solana_counter_program.so
 
 # Get program ID
-solana address -k ./target/deploy/counter_program-keypair.json
-```
+solana address -k ./target/deploy/solana_counter_program-keypair.json
 
-### 5. Run Tests
+5. Run Tests
+bash
 
-```bash
-# Run unit tests
+# Run unit tests (используют LiteSVM)
 cargo test -- --nocapture
 
-# Run integration tests
-cargo test --test integration -- --nocapture
-```
-
-### 6. Run Client Example
-
-```bash
-# Update program ID in examples/client.rs first
-# Replace with your actual program ID from deployment
+# Run the client example (предварительно обновив program_id в client.rs)
 cargo run --example client
-```
 
-## Program Structure
-
-### Instructions
+Program Structure
+Instructions
 
 The program supports three instructions:
 
-1. **InitializeCounter**: Creates a new counter account
-   - `initial_value: u64` - Starting value for the counter
+    InitializeCounter: Creates a new counter account
 
-2. **IncrementCounter**: Increases counter value
-   - `step: Option<u64>` - Optional step size (default: 1)
+        initial_value: u64 - Starting value for the counter
 
-3. **DecrementCounter**: Decreases counter value  
-   - `step: Option<u64>` - Optional step size (default: 1)
+    IncrementCounter: Increases counter value
 
+        step: Option<u64> - Optional step size (default: 1)
 
+    DecrementCounter: Decreases counter value
 
-## Usage Examples
+        step: Option<u64> - Optional step size (default: 1)
 
-### Initialize Counter
-```rust
+Usage Examples
+
+Initialize Counter
+rust
+
 // Initialize with value 100
 CounterInstruction::InitializeCounter { initial_value: 100 }
-```
 
-### Increment Operations
-```rust
+Increment Operations
+rust
+
 // Increment by default step (1)
 CounterInstruction::IncrementCounter { step: None }
 
 // Increment by custom step (5)  
 CounterInstruction::IncrementCounter { step: Some(5) }
-```
 
-### Decrement Operations
-```rust
+Decrement Operations
+rust
+
 // Decrement by default step (1)
 CounterInstruction::DecrementCounter { step: None }
 
 // Decrement by custom step (3)
 CounterInstruction::DecrementCounter { step: Some(3) }
-```
 
-
-## Testing
+Testing
 
 The project includes comprehensive tests:
+bash
 
-```bash
 # Run all tests
 cargo test
 
@@ -166,11 +156,10 @@ cargo test -- --nocapture
 
 # Run specific test
 cargo test test_counter_program -- --nocapture
-```
 
-## Project Structure
+Project Structure
+text
 
-```
 solana_counter_program/
 ├── src/
 │   └── lib.rs          # Main program logic
@@ -178,31 +167,17 @@ solana_counter_program/
 │   └── client.rs       # Example client implementation
 ├── target/
 │   └── deploy/
-│       ├── solana-counter_program.so           # Compiled program
-│       └── solana-counter_program-keypair.json # Program keypair
+│       ├── solana_counter_program.so           # Compiled program
+│       └── solana_counter_program-keypair.json # Program keypair
 ├── Cargo.toml          # Project configuration
 └── README.md           # This file
-```
 
-## Documentation
+Documentation
 
-This program extends the official Solana counter example with enhanced functionality. 
-For detailed explanations of Solana program structure and concepts, 
-refer to the official documentation:
+This program extends the official Solana counter example with enhanced functionality. For detailed explanations of Solana program structure and concepts, refer to the official documentation: Solana Rust Program Structure
+Contributing
 
-You can read more here: https://solana.com/ru/docs/programs/rust/program-structure
-
-## Contributing
-
-This is an educational project based on Solana's official examples. Contributions
-that improve security, add features, or enhance documentation are welcome.
-
-## License
+This is an educational project based on Solana's official examples. Contributions that improve security, add features, or enhance documentation are welcome.
+License
 
 This project is open source and available under the MIT License.
-
-## Disclaimer
-
-This code is based on official Solana examples and documentation. 
-It is intended for educational purposes and should be thoroughly audited 
-before use in production environments.
