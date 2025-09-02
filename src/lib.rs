@@ -235,7 +235,7 @@ mod test {
 
         svm.add_program_from_file(
             program_id,
-            "target/deploy/counter_program.so"
+            "target/deploy/solana_counter_program.so"
         ).expect("Failed to load program");
 
         // Create new counter account with initial value
