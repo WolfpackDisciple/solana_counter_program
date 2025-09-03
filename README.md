@@ -107,7 +107,7 @@ cargo build-sbf
 Start local validator (in separate terminal)
 
 solana-test-validator
-Deploy program (используйте правильное имя файла!)
+Deploy program 
 
 solana program deploy ./target/deploy/solana_counter_program.so
 Get program ID
@@ -116,10 +116,10 @@ solana address -k ./target/deploy/solana_counter_program-keypair.json
 
     Run Tests bash
 
-Run unit tests (используют LiteSVM)
+Run unit tests (use LiteSVM)
 
 cargo test -- --nocapture
-Run the client example (предварительно обновив program_id в client.rs)
+Run the client example (update program_id в client.rs)
 
 cargo run --example client
 
