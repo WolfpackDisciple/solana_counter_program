@@ -1,5 +1,5 @@
 Solana Counter Program
-
+ 
 An enhanced Solana counter program example featuring increment/decrement functionality with customizable step sizes. This program extends the official Solana counter example with additional capabilities. You can read more here: https://solana.com/ru/docs/programs/rust/program-structure
 
 ⚠️ Disclaimer: This is an educational project. The code is based on official Solana examples and documentation. It is intended for learning purposes and has not been audited for security. It should not be used in production environments.
@@ -78,17 +78,26 @@ solana config set --url localhost
 
     Cargo.toml Configuration
 
-Ваш файл Cargo.toml уже содержит правильные настройки: toml
 
-[package] name = "solana_counter_program" # Название пакета version = "0.1.0" edition = "2021"
+
+[package] name = "solana_counter_program" 
+version = "0.1.0" edition = "2021"
 
 [lib] crate-type = ["cdylib", "lib"]
 
-[dependencies] borsh = "1.5.7" # Актуальная версия borsh solana-program = "2.2.0"
+[dependencies] borsh = "1.5.7" 
 
-[dev-dependencies] litesvm = "0.6.1" # Для unit-тестов solana-client = "2.2.0" # Для примера client.rs solana-sdk = "2.2.0" tokio = "1.47.1" # Для асинхронного runtime в клиенте
+solana-program = "2.2.0"
 
-[[example]] name = "client" path = "examples/client.rs" # Пример клиента зарегистрирован
+[dev-dependencies] 
+litesvm = "0.6.1"  
+solana-client = "2.2.0" 
+solana-sdk = "2.2.0"
+tokio = "1.47.1" 
+
+[[example]] 
+name = "client"
+path = "examples/client.rs" 
 
     Build and Deploy bash
 
@@ -195,11 +204,10 @@ solana config set --url localhost
 
 3. Cargo.toml Configuration
 
-Ваш файл Cargo.toml уже содержит правильные настройки:
-toml
+
 
 [package]
-name = "solana_counter_program" # Название пакета
+name = "solana_counter_program" 
 version = "0.1.0"
 edition = "2021"
 
@@ -207,18 +215,18 @@ edition = "2021"
 crate-type = ["cdylib", "lib"]
 
 [dependencies]
-borsh = "1.5.7" # Актуальная версия borsh
+borsh = "1.5.7" 
 solana-program = "2.2.0"
 
 [dev-dependencies]
-litesvm = "0.6.1" # Для unit-тестов
-solana-client = "2.2.0" # Для примера client.rs
+litesvm = "0.6.1" 
+solana-client = "2.2.0" 
 solana-sdk = "2.2.0"
-tokio = "1.47.1" # Для асинхронного runtime в клиенте
+tokio = "1.47.1"
 
 [[example]]
 name = "client"
-path = "examples/client.rs" # Пример клиента зарегистрирован
+path = "examples/client.rs" 
 
 4. Build and Deploy
 bash
@@ -229,7 +237,7 @@ cargo build-sbf
 # Start local validator (in separate terminal)
 solana-test-validator
 
-# Deploy program (используйте правильное имя файла!)
+# Deploy program 
 solana program deploy ./target/deploy/solana_counter_program.so
 
 # Get program ID
@@ -238,10 +246,10 @@ solana address -k ./target/deploy/solana_counter_program-keypair.json
 5. Run Tests
 bash
 
-# Run unit tests (используют LiteSVM)
+# Run unit tests (use LiteSVM)
 cargo test -- --nocapture
 
-# Run the client example (предварительно обновив program_id в client.rs)
+# Run the client example (update program_id in client.rs)
 cargo run --example client
 
 Program Structure
